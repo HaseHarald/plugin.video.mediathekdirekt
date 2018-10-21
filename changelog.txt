@@ -24,3 +24,7 @@
 -Added setting "Play videos in best possible quality". If activated the addon now detects the best Stream Quality (mostly HD).
 0.0.10
 -ARD-Streams can now be played in HD, too.
+0.0.11
+-Changed source web address to https.
+0.0.12
+- Fixed and updated getBestQuality function to detect new and more HD streams. 

@@ -7,6 +7,8 @@ import urllib
 import json
 import re
 import time
+import gzip
+import shutil
 from datetime import date, timedelta
 
 addonID = 'plugin.video.mediathekdirekt'
@@ -443,9 +445,13 @@ def searchDate(channelDate = ""):
     endOfDirectory()
 
 def updateData():
+    jsonFileGz = jsonFile + '.gz'
     target = urllib.URLopener()
     try:
-        target.retrieve(updateURL, jsonFile)
+        target.retrieve(updateURL, jsonFileGz)
+        with gzip.open(jsonFileGz, 'rb') as f_in:
+          with open(jsonFile, 'wb') as f_out:
+              shutil.copyfileobj(f_in, f_out)
     except IOError as ioerr:
         dialog = xbmcgui.Dialog()
         dialog.notification('Error updating database', str(ioerr) + ' Update-URL: ' + updateURL, xbmcgui.NOTIFICATION_ERROR, 30000)
